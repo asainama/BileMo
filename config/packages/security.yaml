@@ -21,7 +21,7 @@ security:
             anonymous: true
             json_login:
                  check_path: /api/login_check
-                 username_path: username
+                 username_path: email
                  password_path: password
                  success_handler: lexik_jwt_authentication.handler.authentication_success
                  failure_handler: lexik_jwt_authentication.handler.authentication_failure
@@ -51,4 +51,4 @@ security:
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/mobiles, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/phones, roles: IS_AUTHENTICATED_FULLY }
