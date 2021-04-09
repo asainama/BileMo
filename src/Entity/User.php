@@ -35,7 +35,7 @@ class User
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $zipcode;
 
@@ -45,7 +45,7 @@ class User
     private $city;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="bigint")
      */
     private $phoneNumber;
 

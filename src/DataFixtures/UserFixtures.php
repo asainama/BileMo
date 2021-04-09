@@ -20,17 +20,17 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 30; $i++) {
             $user = new User();
             /** @var Client $client */
-            $client = $this->getReference('client_'. random_int(1, 6));
+            $client = $this->getReference('client_'. random_int(0, 5));
             $user
                 ->setEmail($faker->email())
                 ->setFirstname($faker->firstName())
                 ->setLastname($faker->lastName())
-                ->setPhoneNumber($faker->phoneNumber())
+                ->setPhoneNumber($faker->e164PhoneNumber())
                 ->setClient($client)
                 ->setZipcode($faker->postcode())
                 ->setAddress($faker->address())
                 ->setCity($faker->city());
-            $manager->persist($client);
+            $manager->persist($user);
         }
         $manager->flush();
     }
