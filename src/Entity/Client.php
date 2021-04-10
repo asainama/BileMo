@@ -8,9 +8,18 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Since;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
+ * @UniqueEntity("email")
+ * @UniqueEntity("name")
+ * @ExclusionPolicy("all")
  */
 class Client implements UserInterface
 {
@@ -18,27 +27,40 @@ class Client implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"public","list"})
+     * @Expose()
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Serializer\Groups({"public","list"})
+     * @Assert\NotBlank(message="Le champs email est requis",groups={"CREATE"})
+     * @Assert\Email(message="Le champs n'est pas de type email",groups={"CREATE"})
+     * @Expose()
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Serializer\Groups({"public","list"})
+     * @Expose()
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le champs password est requis", groups={"CREATE"})
+     * @Expose()
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Serializer\Groups({"public","list"})
+     * @Assert\NotBlank(message="Le champs name est requis", groups={"CREATE"})
+     * @Expose()
      */
     private $name;
 

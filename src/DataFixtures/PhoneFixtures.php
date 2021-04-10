@@ -34,15 +34,15 @@ class PhoneFixtures extends Fixture
             foreach ($brands as $key => $value) {
                 if (is_array($value)) {
                     foreach ($value as $v) {
-                        $mobile = new Phone();
+                        $phone = new Phone();
                         $name = $v . random_int(3, 10);
-                        $mobile
+                        $phone
                             ->setName($name)
                             ->setBrand($key)
                             ->setDescription("This phone is $name of the $key")
                             ->setPrice(mt_rand(200, 1400))
                             ->setMemory(random_int(32, 512));
-                        $manager->persist($mobile);
+                        $manager->persist($phone);
                     }
                 }
             }

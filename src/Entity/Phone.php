@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=PhoneRepository::class)
+ * @ORM\Table(name="`phone`")
  */
 class Phone
 {

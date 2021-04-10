@@ -5,10 +5,15 @@ namespace App\Entity;
 use App\Entity\Client;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @ExclusionPolicy("all")
  */
 class User
 {
@@ -16,47 +21,73 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"list"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champs firstname est requis", groups={"CREATE", "CREATEUSER"})
+     * @Serializer\Groups({"public","list"})
+     * @Expose()
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champs lastname est requis", groups={"CREATE", "CREATEUSER"})
+     * @Serializer\Groups({"public","list"})
+     * @Expose()
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champs address est requis", groups={"CREATE", "CREATEUSER"})
+     * @Serializer\Groups({"public","list"})
+     * @Expose()
      */
     private $address;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Le champs zipcode est requis", groups={"CREATE", "CREATEUSER"})
+     * @Assert\Length(min = 5,max = 5,minMessage="Le champs phone_number doit faire 5 caractères",maxMessage="Le champs phone_number doit faire 5 caractères", groups={"CREATE", "CREATEUSER"})
+     * @Serializer\Groups({"public","list"})
+     * @Expose()
      */
     private $zipcode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champs city est requis", groups={"CREATE", "CREATEUSER"})
+     * @Serializer\Groups({"public","list"})
+     * @Expose()
      */
     private $city;
 
     /**
      * @ORM\Column(type="bigint")
+     * @Assert\Length(min = 12,max = 12,minMessage="Le champs phone_number doit faire 12 caractères",maxMessage="Le champs phone_number doit faire 5 caractères", groups={"CREATE", "CREATEUSER"})
+     * @Serializer\Groups({"public","list"})
+     * @Expose()
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champs email est requis", groups={"CREATE", "CREATEUSER"})
+     * @Assert\Email(message="Le champs email n'est pas valide", groups={"CREATE", "CREATEUSER"})
+     * @Serializer\Groups({"public","list"})
+     * @Expose()
      */
     private $email;
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="users", cascade={"all"})
      * @ORM\JoinColumn(nullable=false)
+     * @Serializer\Groups({"list"})
+     * @Expose()
      */
     private $client;
 
