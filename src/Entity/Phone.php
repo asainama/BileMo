@@ -4,10 +4,26 @@ namespace App\Entity;
 
 use App\Repository\PhoneRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass=PhoneRepository::class)
  * @ORM\Table(name="`phone`")
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "app_phone_detail",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *     )
+ * )
+ * @Hateoas\Relation(
+ *      "list",
+ *      href = @Hateoas\Route(
+ *          "app_phone_list",
+ *          absolute = true
+ *     )
+ * )
  */
 class Phone
 {
@@ -15,31 +31,37 @@ class Phone
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Serializer\Since("1.0")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Since("1.0")
      */
     private $brand;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Since("1.0")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Since("1.0")
      */
     private $description;
 
     /**
      * @ORM\Column(type="float", length=255)
+     * @Serializer\Since("1.0")
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
+     * @Serializer\Since("1.0")
      */
     private $memory;
 

@@ -29,6 +29,7 @@ class Client implements UserInterface
      * @ORM\Column(type="integer")
      * @Serializer\Groups({"public","list"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $id;
 
@@ -38,6 +39,7 @@ class Client implements UserInterface
      * @Assert\NotBlank(message="Le champs email est requis",groups={"CREATE"})
      * @Assert\Email(message="Le champs n'est pas de type email",groups={"CREATE"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $email;
 
@@ -45,6 +47,7 @@ class Client implements UserInterface
      * @ORM\Column(type="json")
      * @Serializer\Groups({"public","list"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $roles = [];
 
@@ -53,6 +56,7 @@ class Client implements UserInterface
      * @ORM\Column(type="string")
      * @Assert\NotBlank(message="Le champs password est requis", groups={"CREATE"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $password;
 
@@ -61,11 +65,13 @@ class Client implements UserInterface
      * @Serializer\Groups({"public","list"})
      * @Assert\NotBlank(message="Le champs name est requis", groups={"CREATE"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="client", orphanRemoval=true, cascade={"persist"})
+     * @Serializer\Since("1.0")
      */
     private $users;
 

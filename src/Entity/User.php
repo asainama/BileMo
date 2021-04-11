@@ -9,11 +9,54 @@ use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  * @ExclusionPolicy("all")
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "app_user_detail",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true,
+ *     ),
+ *     exclusion = @Hateoas\Exclusion(groups="list")
+ * )
+ * @Hateoas\Relation(
+ *      "delete",
+ *      href = @Hateoas\Route(
+ *          "app_users_delete",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      ),
+ *     exclusion = @Hateoas\Exclusion(groups="list")
+ * )
+ * @Hateoas\Relation(
+ *      "deleteByClient",
+ *      href = @Hateoas\Route(
+ *          "app_users_delete_by_client",
+ *          parameters = { "id" = "expr(object.getClient().getId())", "userid" = "expr(object.getId())" },
+ *          absolute = true
+ *      ),
+ *     exclusion = @Hateoas\Exclusion(groups="list")
+ * )
+ * @Hateoas\Relation(
+ *      "list",
+ *      href = @Hateoas\Route(
+ *          "app_users_list",
+ *          absolute = true
+ *      ),
+ *     exclusion = @Hateoas\Exclusion(groups="list")
+ * )
+ * @Hateoas\Relation(
+ *     "client",
+ *     embedded = @Hateoas\Embedded(
+ *      "expr(object.getClient())",
+ *      exclusion = @Hateoas\Exclusion(groups="list")
+ *     )
+ * )
  */
 class User
 {
@@ -22,6 +65,8 @@ class User
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Serializer\Groups({"list"})
+     * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $id;
 
@@ -30,6 +75,7 @@ class User
      * @Assert\NotBlank(message="Le champs firstname est requis", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $firstname;
 
@@ -38,6 +84,7 @@ class User
      * @Assert\NotBlank(message="Le champs lastname est requis", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $lastname;
 
@@ -46,6 +93,7 @@ class User
      * @Assert\NotBlank(message="Le champs address est requis", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $address;
 
@@ -55,6 +103,7 @@ class User
      * @Assert\Length(min = 5,max = 5,minMessage="Le champs phone_number doit faire 5 caractères",maxMessage="Le champs phone_number doit faire 5 caractères", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $zipcode;
 
@@ -63,6 +112,7 @@ class User
      * @Assert\NotBlank(message="Le champs city est requis", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $city;
 
@@ -71,6 +121,7 @@ class User
      * @Assert\Length(min = 12,max = 12,minMessage="Le champs phone_number doit faire 12 caractères",maxMessage="Le champs phone_number doit faire 5 caractères", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $phoneNumber;
 
@@ -80,14 +131,16 @@ class User
      * @Assert\Email(message="Le champs email n'est pas valide", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $email;
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="users", cascade={"all"})
      * @ORM\JoinColumn(nullable=false)
-     * @Serializer\Groups({"list"})
+     * @Serializer\Groups({"public"})
      * @Expose()
+     * @Serializer\Since("1.0")
      */
     private $client;
 

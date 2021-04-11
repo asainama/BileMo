@@ -25,7 +25,7 @@ class UserController extends AbstractFOSRestController
      *      name = "app_user_detail",
      *      requirements = {"id"="\d+"}
      * )
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"list"})
      */
     public function getUserById(User $user = null)
     {
@@ -94,7 +94,7 @@ class UserController extends AbstractFOSRestController
      *      name = "app_users_list_by_client",
      *      requirements = {"id"="\d+"}
      * )
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"list"})
      */
     public function getAllUsersByClient(Client $client = null)
     {
