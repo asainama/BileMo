@@ -15,6 +15,9 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 
 class UserController extends AbstractFOSRestController
 {
@@ -25,6 +28,13 @@ class UserController extends AbstractFOSRestController
      *      name = "app_user_detail",
      *      requirements = {"id"="\d+"}
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Return the user by id",
+     *      @Model(type=User::class)
+     * )
+     * @OA\Tag(name="Users")
+     * @Security(name="Bearer")
      * @Rest\View(serializerGroups={"list"})
      */
     public function getUserById(User $user = null)
@@ -66,6 +76,13 @@ class UserController extends AbstractFOSRestController
      *     default="0",
      *     description="The pagination offset"
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Return alls users",
+     *      @Model(type=User::class)
+     * )
+     * @OA\Tag(name="Users")
+     * @Security(name="Bearer")
      * @Rest\View(serializerGroups={"list"})
      */
     public function getAllUsers(ParamFetcher $paramFetcher, Request $request)
@@ -94,6 +111,13 @@ class UserController extends AbstractFOSRestController
      *      name = "app_users_list_by_client",
      *      requirements = {"id"="\d+"}
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Return all users by client",
+     *      @Model(type=User::class)
+     * )
+     * @OA\Tag(name="Users")
+     * @Security(name="Bearer")
      * @Rest\View(serializerGroups={"list"})
      */
     public function getAllUsersByClient(Client $client = null)
@@ -120,6 +144,13 @@ class UserController extends AbstractFOSRestController
      *     "validator"={"groups"="CREATEUSER"}
      *  }
      * )
+     * @OA\Response(
+     *      response=201,
+     *      description="Create User by Client",
+     *      @Model(type=User::class)
+     * )
+     * @OA\Tag(name="Users")
+     * @Security(name="Bearer")
      * @Rest\View(StatusCode=201,serializerGroups={"list"})
      */
     public function setUsersByClient(
@@ -159,6 +190,13 @@ class UserController extends AbstractFOSRestController
      *      name = "app_users_delete_by_client",
      *      requirements = {"id"="\d+", "userid"="\d+"}
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Delete user by id and by client",
+     *      @Model(type=User::class)
+     * )
+     * @OA\Tag(name="Users")
+     * @Security(name="Bearer")
      * @Rest\View()
      */
     public function deleteUserByClient(Client $client = null, int $userid)
@@ -189,6 +227,13 @@ class UserController extends AbstractFOSRestController
      *      name = "app_users_delete",
      *      requirements = {"id"="\d+"}
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Delete user by id",
+     *      @Model(type=User::class)
+     * )
+     * @OA\Tag(name="Users")
+     * @Security(name="Bearer")
      * @Rest\View()
      */
     public function deleteUser(User $user = null)

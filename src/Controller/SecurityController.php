@@ -14,6 +14,9 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 
 class SecurityController extends AbstractFOSRestController
 {
@@ -56,7 +59,14 @@ class SecurityController extends AbstractFOSRestController
      *     "validator"={"groups"="CREATE"}
      *  }
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Register client",
+     *      @Model(type=Client::class)
+     * )
+     * @OA\Tag(name="Clients")
      * @Rest\View(StatusCode=201)
+     * @Security(name="Bearer")
      * @return \FOS\RestBundle\View\View
      */
     public function registration(Client $client, ConstraintViolationList $violations)

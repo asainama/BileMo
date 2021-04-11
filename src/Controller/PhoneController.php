@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 
 class PhoneController extends AbstractFOSRestController
 {
@@ -42,6 +45,13 @@ class PhoneController extends AbstractFOSRestController
      *     default="0",
      *     description="The pagination offset"
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Return all phones",
+     *      @Model(type=Phone::class)
+     * )
+     * @OA\Tag(name="Phones")
+     * @Security(name="Bearer")
      * @Rest\View()
      */
     public function getAllPhones(ParamFetcher $paramFetcher, Request $request)
@@ -68,6 +78,13 @@ class PhoneController extends AbstractFOSRestController
      *  name = "app_phone_detail",
      *  requirements = {"id"="\d+"}
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Return the phone by id",
+     *      @Model(type=Phone::class)
+     * )
+     * @OA\Tag(name="Phones")
+     * @Security(name="Bearer")
      * @Rest\View()
      */
     public function showAction(Phone $phone = null)

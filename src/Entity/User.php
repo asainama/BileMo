@@ -7,14 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
 use Hateoas\Configuration\Annotation as Hateoas;
+use OpenApi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
- * @ExclusionPolicy("all")
+ * @Serializer\ExclusionPolicy("all")
  * @Hateoas\Relation(
  *      "self",
  *      href = @Hateoas\Route(
@@ -65,8 +64,9 @@ class User
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Serializer\Groups({"list"})
-     * @Expose()
+     * @Serializer\Expose()
      * @Serializer\Since("1.0")
+     * @OA\Property(description="The unique identifier of the user.", type="integer")
      */
     private $id;
 
@@ -74,8 +74,9 @@ class User
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le champs firstname est requis", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
-     * @Expose()
+     * @Serializer\Expose()
      * @Serializer\Since("1.0")
+     * @OA\Property(description="This is user's firstname.", type="string")
      */
     private $firstname;
 
@@ -83,8 +84,9 @@ class User
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le champs lastname est requis", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
-     * @Expose()
+     * @Serializer\Expose()
      * @Serializer\Since("1.0")
+     * @OA\Property(description="This is user's lastname.", type="string")
      */
     private $lastname;
 
@@ -92,8 +94,9 @@ class User
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le champs address est requis", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
-     * @Expose()
+     * @Serializer\Expose()
      * @Serializer\Since("1.0")
+     * @OA\Property(description="This is user's address.", type="string")
      */
     private $address;
 
@@ -102,8 +105,9 @@ class User
      * @Assert\NotBlank(message="Le champs zipcode est requis", groups={"CREATE", "CREATEUSER"})
      * @Assert\Length(min = 5,max = 5,minMessage="Le champs phone_number doit faire 5 caractères",maxMessage="Le champs phone_number doit faire 5 caractères", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
-     * @Expose()
+     * @Serializer\Expose()
      * @Serializer\Since("1.0")
+     * @OA\Property(description="This is user's zipcode.", type="integer")
      */
     private $zipcode;
 
@@ -111,8 +115,9 @@ class User
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le champs city est requis", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
-     * @Expose()
+     * @Serializer\Expose()
      * @Serializer\Since("1.0")
+     * @OA\Property(description="This is user's city.", type="string")
      */
     private $city;
 
@@ -120,8 +125,9 @@ class User
      * @ORM\Column(type="bigint")
      * @Assert\Length(min = 12,max = 12,minMessage="Le champs phone_number doit faire 12 caractères",maxMessage="Le champs phone_number doit faire 5 caractères", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
-     * @Expose()
+     * @Serializer\Expose()
      * @Serializer\Since("1.0")
+     * @OA\Property(description="This is user's phoneNumber.", type="bigint")
      */
     private $phoneNumber;
 
@@ -130,8 +136,9 @@ class User
      * @Assert\NotBlank(message="Le champs email est requis", groups={"CREATE", "CREATEUSER"})
      * @Assert\Email(message="Le champs email n'est pas valide", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
-     * @Expose()
+     * @Serializer\Expose()
      * @Serializer\Since("1.0")
+     * @OA\Property(description="This is user's email.", type="string")
      */
     private $email;
 
@@ -139,8 +146,9 @@ class User
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="users", cascade={"all"})
      * @ORM\JoinColumn(nullable=false)
      * @Serializer\Groups({"public"})
-     * @Expose()
+     * @Serializer\Expose()
      * @Serializer\Since("1.0")
+     * @OA\Property(description="This is user's client.", type="integer")
      */
     private $client;
 

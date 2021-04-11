@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\PhoneRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Hateoas\Configuration\Annotation as Hateoas;
+use JMS\Serializer\Annotation as Serializer;
+use OpenApi\Annotations as OA;
 
 /**
  * @ORM\Entity(repositoryClass=PhoneRepository::class)
@@ -32,36 +34,42 @@ class Phone
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Serializer\Since("1.0")
+     * @OA\Property(description="The unique identifier of the phone.", type="integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Since("1.0")
+     * @OA\Property(description="This is phone's brand",type="string", maxLength=255)
      */
     private $brand;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Since("1.0")
+     * @OA\Property(type="string", maxLength=255, description="This is phone's name")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Serializer\Since("1.0")
+     * @OA\Property(type="string", maxLength=255, description="This is phone's description")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="float", length=255)
+     * @ORM\Column(type="float")
      * @Serializer\Since("1.0")
+     * @OA\Property(type="float", description="This is phone's price")
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
      * @Serializer\Since("1.0")
+     * @OA\Property(type="integer", description="This is phone's memory")
      */
     private $memory;
 
