@@ -51,4 +51,6 @@ security:
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/phones, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/phones/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/users/*, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/api/clients/*, roles: IS_AUTHENTICATED_FULLY }

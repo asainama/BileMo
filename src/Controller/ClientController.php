@@ -19,7 +19,7 @@ class ClientController extends AbstractFOSRestController
      * )
      * @Rest\View
      */
-    public function getClientById(Client $client)
+    public function getClientById(Client $client = null)
     {
         if (!$client) {
             return $this->view(
