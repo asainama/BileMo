@@ -7,6 +7,9 @@ use FOS\RestBundle\Context\Context;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 
 class ClientController extends AbstractFOSRestController
 {
@@ -17,6 +20,13 @@ class ClientController extends AbstractFOSRestController
      *  name = "app_client_detail",
      *  requirements = {"id"="\d+"}
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Return client by id",
+     *      @Model(type=Client::class)
+     * )
+     * @OA\Tag(name="Clients")
+     * @Security(name="Bearer")
      * @Rest\View
      */
     public function getClientById(Client $client = null)
@@ -36,6 +46,13 @@ class ClientController extends AbstractFOSRestController
      *  "/api/clients",
      *  name = "app_client_list"
      * )
+     * @OA\Response(
+     *      response=200,
+     *      description="Return all clients",
+     *      @Model(type=Client::class)
+     * )
+     * @OA\Tag(name="Clients")
+     * @Security(name="Bearer")
      * @Rest\View()
      */
     public function getAllClients()
