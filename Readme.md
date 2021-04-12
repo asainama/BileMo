@@ -8,6 +8,13 @@
 * Composer 2.0.7
 * PHP 7.2.1
 * MYSQL  8.0.19
+* jms/serializer-bundle 3.9
+* lexik/jwt-authentication-bundle 2.11
+* nelmio/api-doc-bundle 4.2
+* pagerfanta/pagerfanta 2.7
+* FosRestBundle 3.0
+* fakerphp/faker 1.14
+* willdurand/hateoas-bundle 2.2
 
 ## Installation
 
