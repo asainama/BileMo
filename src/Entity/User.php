@@ -122,7 +122,7 @@ class User
     private $city;
 
     /**
-     * @ORM\Column(type="bigint")
+     * @ORM\Column(type="bigint", nullable=false)
      * @Assert\Length(min = 12,max = 12,minMessage="Le champs phone_number doit faire 12 caractères",maxMessage="Le champs phone_number doit faire 5 caractères", groups={"CREATE", "CREATEUSER"})
      * @Serializer\Groups({"public","list"})
      * @Serializer\Expose()
