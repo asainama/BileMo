@@ -71,3 +71,4 @@ Un utlisateur avec les identifiants:
 5. Félicitations l'api est installé
 
 Vous pouvez consulter la documentation via le lien /api/doc
+Vous pouvez aussi vous connecter via /api/login_check
