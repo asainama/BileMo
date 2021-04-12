@@ -30,7 +30,7 @@ class ClientFixtures extends Fixture
             $client = new Client();
             $client
                 ->setName($faker->name())
-                ->setEmail($faker->email())
+                ->setEmail(($i == 0) ? "test@test.fr" : $faker->email())
                 ->setRoles(array('ROLE_USER'))
                 ->setPassword($this->encoder->encodePassword($client, 'admin'));
             $manager->persist($client);
